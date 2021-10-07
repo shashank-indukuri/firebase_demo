@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { React, useState, useEffect } from "react";
+import { auth, provider } from "./firebase";
+import { signInWithPopup, signOut } from "firebase/auth";
+import Welcome from "./Welcome";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  //Google LogIn
+  const handleLogin = () => {
+    signInWithPopup(auth, provider);
+  };
+
+  //LogOut
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      console.log("signed out");
+      setUser(null);
+    })
+  };
+  //Saving the username after sucessfull login
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user !== null) {
+        setUser(user.displayName);
+      }
+    });
+  }, []);
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={handleLogin}>Login</button>
+      <button onClick={handleLogout}>Logout</button>
+      {user && <Welcome user={user} />}
     </div>
   );
 }
