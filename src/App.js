@@ -6,7 +6,7 @@ import Welcome from "./Welcome";
 function App() {
   const [user, setUser] = useState(null);
 
-  //Google Authentication implemented for Login
+  //Google Authentication implemented for Login using firebase
   const handleLogin = () => {
     signInWithPopup(auth, provider);
   };
