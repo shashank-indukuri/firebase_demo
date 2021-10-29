@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# A Sample React Firebase Web Application with Google authentication
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
